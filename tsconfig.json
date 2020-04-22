@@ -15,10 +15,10 @@
       "es2018",
       "dom"
     ],
+    "typeRoots": ["src/app/global.d.ts" ],
     "paths": {
       "@lapita/loggy": [
-        "dist/lapita/loggy/lapita-loggy",
-        "dist/lapita/loggy"
+        "projects/lapita/loggy/src/public-api.ts"
       ]
     }
   },
