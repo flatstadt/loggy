@@ -1,27 +1,122 @@
-# Loggy
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 9.0.6.
 
-## Development server
+[![MIT](https://img.shields.io/packagist/l/doctrine/orm.svg?style=flat-square)]()
+[![styled with prettier](https://img.shields.io/badge/styled_with-prettier-ff69b4.svg?style=flat-square)](https://github.com/prettier/prettier)
+[![All Contributors](https://img.shields.io/badge/all_contributors-0-orange.svg?style=flat-square)](#contributors-)
+[![flatstadt](https://img.shields.io/badge/@-flatstadt-383636?style=flat-square&labelColor=8f68d4)](https://github.com/flatstadt/)
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
 
-## Code scaffolding
+> Loggy, better than a simple console
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+Let's be honest. There are more wraps of the console than pieces of hay are in a haystack. Loggy offers a simpler way to use the console. It allows logging inside groups, which comes in handy to filter through your browser console when you mess up Angular detection change. Loggy also lets you log methods and properties by simply adding a decorator. And all this, while maintaining the file name and line.
 
-## Build
+## Features
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
+- ✅ Log by group
+- ✅ Stylish log levels
+- ✅ Log methods
+- ✅ Log properties 
 
-## Running unit tests
+## Table of Contents
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+- [Features](#features)
+- [Table of Contents](#table-of-contents)
+- [Installation](#installation)
+  - [NPM](#npm)
+  - [Yarn](#yarn)
+- [Usage](#usage)
 
-## Running end-to-end tests
 
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
+## Installation
 
-## Further help
+### NPM
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+`npm install @lapita/loggy --save`
+
+### Yarn
+
+`yarn add @lapita/loggy`
+
+## Usage
+
+Start using Loggy couldn't be simplier. You need to create a file, preferably inside your src folder. Inside this file, you need to set the log level first, and then create an instance of Loggy by calling `createLoggy`.
+
+This creation method requires a single object with contains the list of groups you want for your project. Some examples are _login_, _authorization_, and so on. These groups will make easier to filter your browser Console when you need to look for specific information associated to a component.
+
+```ts
+import { createLoggy, setLogLevel } from '@lapita/loggy';
+
+import { environment } from './environments/environment';
+
+// Set the log level
+setLogLevel(environment.logLevel);
+
+// Instance loggy
+export const {debug, log, info, warn, error} = createLoggy(
+  {
+    global: 'global stuff', 
+    auth: 'authorization', 
+    dashboard: 'dashboard'
+  }
+);
+
+```
+
+Loggy wraps five log levels. From lower to higher level, you'll find debug, log, info, warn and error. There can be easily access by destructuring the return object. And you're ready to start using Loggy.
+
+```ts
+log.global('It preserves the line numbers', {obj: 'test'});
+log.auth('auth failed');
+log.dashboard('dashboard init');
+```
+
+Your IDE will suggest the available groups as soon as you type `log.`.
+
+Logging a property can be done by adding a `@LoggyProperty`. You need to pass in a function pointing to the log and group you want to use. This way, you'll be preserving the line and file where the property lays.
+
+```ts
+@LoggyProperty((t) => log.global(t), {logValue: true, accessType: 'set'})
+title = 'Loggy! Open the console.';
+```
+This decorator admits the following options, which are self-explanatory.
+```ts
+{
+  logCalls: boolean;
+  logValue: boolean;
+  accessType: 'get' | 'set' | 'get/set';
+  enable: boolean;
+}
+
+```
+Logging a method can be done by adding a `@LoggyMethod`. You need to pass in a function pointing to the log and group you want to use as well.
+
+```ts
+@LoggyMethod((t) => log.global(t))
+testMethod() {
+  for (let index = 0; index < 1000000; index++) {
+      const text = String(index);
+      const number = +text;
+  }
+}
+```
+This decorator admits the following options, which, again, are pretty self-explanatory.
+```ts
+{
+  logTime: true,
+  logCalls: false,
+  logContext: false,
+  enable: true,
+}
+```
+Addionally, it is possible to customize the log level colors as well as the separator between the group name and the actually log text. You need to pass in another argument while creating a new instace of Loggy.
+
+```ts
+{
+  separator: '#',
+  debug: 'background: white; color: black;',
+  log: 'background: purple; color: white;',
+  info: 'background: blue; color: white;',
+  warn: 'background: orange; color: black;',
+  error: 'background: red; color: white;',
+};
+```
