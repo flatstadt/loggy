@@ -8,7 +8,7 @@
 
 > Loggy, better than a simple console
 
-Let's be honest. There are more wraps of the console than pieces of hay are in a haystack. Loggy offers a simpler way to use the console. It allows logging inside groups, which comes in handy to filter through your browser console when you mess up Angular detection change. Loggy also lets you log methods and properties by simply adding a decorator. And all this, while maintaining the file name and line.
+Let's be honest. There are more wraps of the console than pieces of hay in a haystack. Loggy offers a simpler way to use the console. It allows logging inside groups, which comes in handy to filter through your browser console when you mess up Angular detection change. Loggy also lets you log methods and properties by simply adding a decorator. And all this, while maintaining the file name and line.
 
 ## Features
 
@@ -39,9 +39,9 @@ Let's be honest. There are more wraps of the console than pieces of hay are in a
 
 ## Usage
 
-Start using Loggy couldn't be simplier. You need to create a file, preferably inside your src folder. Inside this file, you need to set the log level first, and then create an instance of Loggy by calling `createLoggy`.
+Start using Loggy couldn't be simpler. You need to create a file, preferably inside your src folder. Inside this file, you need to set the log level first, and then create an instance of Loggy by calling `createLoggy`.
 
-This creation method requires a single object with contains the list of groups you want for your project. Some examples are _login_, _authorization_, and so on. These groups will make easier to filter your browser Console when you need to look for specific information associated to a component.
+This creation method requires a single object which contains the list of groups you want for your project. Some examples are _login_, _authorization_, and so on. These groups will make easier to filter your browser Console when you need to look for specific information associated with a component.
 
 ```ts
 import { createLoggy, setLogLevel } from '@lapita/loggy';
@@ -62,7 +62,7 @@ export const {debug, log, info, warn, error} = createLoggy(
 
 ```
 
-Loggy wraps five log levels. From lower to higher level, you'll find debug, log, info, warn and error. There can be easily access by destructuring the return object. And you're ready to start using Loggy.
+Loggy wraps five log levels. From lower to higher level, you'll find debug, log, info, warn, and error. There can be easily accessed by destructuring the return object. And you're ready to start using Loggy.
 
 ```ts
 log.global('It preserves the line numbers', {obj: 'test'});
