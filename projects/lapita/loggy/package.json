@@ -1,6 +1,6 @@
 {
   "name": "@lapita/loggy",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "peerDependencies": {
     "tslib": "^1.10.0"
   },
@@ -14,11 +14,11 @@
     "access": "public"
   },
   "bugs": {
-    "url": "flatstadt/issue"
+    "url": "https://github.com/flatstadt/loggy/issues"
   },
-  "homepage": "flatstadt#readme",
+  "homepage": "https://github.com/flatstadt/loggy",
   "repository": {
     "type": "git",
-    "url": "flatstadt"
+    "url": "https://github.com/flatstadt/loggy"
   }
 }
